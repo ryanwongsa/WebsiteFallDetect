@@ -7,3 +7,15 @@ var config = {
 
 }
 ```
+### Config.php file components
+```php
+<?php
+  return array(
+    'API_ACCESS_KEY' => 'YOUR_API_KEY',
+    'HOST' => 'YOUR_HOST',
+    'USERNAME' => 'YOUR_USERNAME',
+    'PASSWORD' => 'YOUR_PASSWORD',
+    'DATABASE' => 'YOUR_DATABASE',
+);
+?>
+```
