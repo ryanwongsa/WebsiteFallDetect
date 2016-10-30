@@ -40,40 +40,17 @@ $falls =getFalls();
            zoom: 13,
            mapTypeControl: false
          });
-         // These are the real estate listings that will be shown to the user.
-        //  var locations = [];
 
          convertToLocations(locationsCarer,falls);
-        //  for (var i = 0; i < falls.length; i++) {
-        //    var loc = {title: falls[i][0], location: {lat: parseFloat(falls[i][1]), lng: parseFloat(falls[i][2])}};
-        //     locations.push(loc);
-        //  };
+
          var largeInfowindow = new google.maps.InfoWindow();
 
-         createMarker(markersCarer,locationsCarer);
-         // The following group uses the location array to create an array of markers on initialize.
-        //  for (var i = 0; i < locations.length; i++) {
-        //    // Get the position from the location array.
-        //    var position = locations[i].location;
-        //    var title = locations[i].title;
-        //    // Create a marker per location, and put into markers array.
-        //     var marker = new google.maps.Marker({
-        //      position: position,
-        //      title: title,
-        //      animation: google.maps.Animation.DROP,
-        //      id: i
-        //    });
-        //    // Push the marker to our array of markers.
-        //    markers.push(marker);
-        //    // Create an onclick event to open an infowindow at each marker.
-        //    marker.addListener('click', function() {
-        //      populateInfoWindow(this, largeInfowindow);
-        //    });
-        //  }
+         createMarker(markersCarer,locationsCarer,"U");
+
          showListings(markersCarer);
        }
        //
-       function createMarker(markers,locations){
+       function createMarker(markers,locations,type){
          // The following group uses the location array to create an array of markers on initialize.
          for (var i = 0; i < locations.length; i++) {
            // Get the position from the location array.
@@ -81,9 +58,20 @@ $falls =getFalls();
            var position = locations[i].location;
            var title = locations[i].title;
            // Create a marker per location, and put into markers array.
+           var icon="http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+           if(type=="C"){
+             icon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+           }
+           else if(type=="U"){
+             icon="http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+           }
+           else if(type=="A"){
+             icon="http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+           }
             var marker = new google.maps.Marker({
              position: position,
              title: title,
+             icon: icon,
              animation: google.maps.Animation.DROP,
              id: i
            });
