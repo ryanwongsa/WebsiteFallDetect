@@ -2,7 +2,8 @@
 // getting falls from database (userID, lat, lng)
 function getFalls()
 {
-	$conn = mysqli_connect("localhost","homestead","secret","fcm");
+	$configs = include('config.php');
+	$conn = mysqli_connect($configs["HOST"],$configs["USERNAME"],$configs["PASSWORD"],$configs["DATABASE"]);
 	$sql = " Select * from falllocations";
 	$result = mysqli_query($conn,$sql);
 	$falls = array();
