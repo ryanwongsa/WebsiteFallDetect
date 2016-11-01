@@ -5,7 +5,7 @@ $test_registrationIds = array('dclP--HKsqs:APA91bHfVu9XfTt5F5zjYNz-T8LzHON2vFwEx
 // prep the bundle
 $message = array
 (
-    'message'   => 'TestMessage',
+    'message'   => 'TestMessagebad',
     'title'     => 'TestTitle',
     'subtitle'  => 'TestSubtitle',
     'tickerText'    => 'TestTicker',
