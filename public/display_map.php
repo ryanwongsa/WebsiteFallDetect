@@ -118,7 +118,7 @@ $falls =getFalls();
          }
          map.fitBounds(bounds);
        }
-       
+
      </script>
    <script async defer
          src='https://maps.googleapis.com/maps/api/js?v=3&callback=initMap&key='+config.Google_Maps_API_Key>
