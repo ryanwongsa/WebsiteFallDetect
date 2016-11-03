@@ -2,10 +2,12 @@
 
 require "fetchfalls.php";
 $falls =getFalls();
+$carers = getCarers();
 ?>
 
 <script type="text/javascript">
   var falls = <?php echo json_encode($falls);?>;
+  var carers = <?php echo json_encode($carers);?>;
   var map;
   // Create a new blank array for all the listing markers.
   var markersCarer = [];
@@ -22,12 +24,18 @@ $falls =getFalls();
       mapTypeControl: false
     });
 
-    convertToLocations(locationsCarer,falls);
+    convertToLocations(locationPatientAttending,falls);
 
     // TODO
     // If I want to run both of these methods below in the index.php page, how would I do this in php?
-    createMarker(markersCarer,locationsCarer,"U");
-    showListings(markersCarer);
+    createMarker(markerPatientAttending,locationPatientAttending,"A");
+    // showListings(markerPatientAttending);
+
+    convertToLocations(locationsCarer,carers);
+
+    createMarker(markersCarer,locationsCarer,"C");
+    showListings(markersCarer,markerPatientAttending);
+
   }
 
   //
@@ -90,13 +98,18 @@ $falls =getFalls();
     }
   }
   // This function will loop through the markers array and display them all.
-  function showListings(markers) {
+  function showListings(markers1,markers2) {
     var bounds = new google.maps.LatLngBounds();
     // Extend the boundaries of the map for each marker and display the marker
-    for (var i = 0; i < markers.length; i++) {
-      markers[i].setMap(map);
-      bounds.extend(markers[i].position);
+    for (var i = 0; i < markers1.length; i++) {
+      markers1[i].setMap(map);
+      bounds.extend(markers1[i].position);
     }
+    for (var i = 0; i < markers2.length; i++) {
+      markers2[i].setMap(map);
+      bounds.extend(markers2[i].position);
+    }
+
     map.fitBounds(bounds);
   }
 </script>

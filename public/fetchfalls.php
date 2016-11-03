@@ -15,4 +15,19 @@ function getFalls()
 	return $falls;
 }
 
+function getCarers()
+{
+	$configs = include('config.php');
+	$conn = mysqli_connect($configs["HOST"],$configs["USERNAME"],$configs["PASSWORD"],$configs["DATABASE"]);
+	$sql = " Select * from carers";
+	$result = mysqli_query($conn,$sql);
+	$carers = array();
+	if(mysqli_num_rows($result) > 0 ){
+		while ($row = mysqli_fetch_assoc($result)) {
+			$carers[] = array($row["userID"],$row["lat"],$row["lng"]);
+		}
+	}
+	return $carers;
+}
+
 ?>
