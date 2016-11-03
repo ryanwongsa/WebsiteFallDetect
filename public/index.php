@@ -68,14 +68,20 @@
       include "mapfunction.php";
       // echo "<script type='text/javascript' src='markerFunctions.js'></script>";
     ?>
+    <div>
+      <input id="show-listings" type="button" value="Show Listings">
+      <input id="hide-listings" type="button" value="Hide Listings">
+    </div>
 
 
       <script async defer src='https://maps.googleapis.com/maps/api/js?v=3&callback=initMap&key='+config.Google_Maps_API_Key></script>
 
       </div>
+
     </div>
   </div>
 </div>
+
 <div class="row-fluid">
       <div id="footer" class="span12"> 2016 &copy; Mobile Care </div>
     </div>

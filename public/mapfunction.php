@@ -34,8 +34,10 @@ $carers = getCarers();
     convertToLocations(locationsCarer,carers);
 
     createMarker(markersCarer,locationsCarer,"C");
-    showListings(markersCarer,markerPatientAttending);
+    // showListings(markersCarer,markerPatientAttending);
 
+    document.getElementById('hide-listings').addEventListener('click', function(){hideListings(markersCarer,markerPatientAttending);},false);
+    document.getElementById('show-listings').addEventListener('click', function(){showListings(markersCarer,markerPatientAttending);},false);
   }
 
   //
@@ -111,5 +113,15 @@ $carers = getCarers();
     }
 
     map.fitBounds(bounds);
+  }
+
+  function hideListings(markers1,markers2) {
+    for (var i = 0; i < markers1.length; i++) {
+      markers1[i].setMap(null);
+    }
+
+    for (var i = 0; i < markers2.length; i++) {
+      markers2[i].setMap(null);
+    }
   }
 </script>
