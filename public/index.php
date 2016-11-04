@@ -71,13 +71,17 @@
     <div>
       <input id="show-listings" type="button" value="Show Listings">
       <input id="hide-listings" type="button" value="Hide Listings">
+      <input id="send-to-phone" type="button" onclick="echoHello()" value="Send to Phone">
     </div>
 
 
       <script async defer src='https://maps.googleapis.com/maps/api/js?v=3&callback=initMap&key='+config.Google_Maps_API_Key></script>
 
       </div>
-
+      <?php
+        include "push_notification.php";
+        // echo "<script type='text/javascript' src='markerFunctions.js'></script>";
+      ?>
     </div>
   </div>
 </div>
