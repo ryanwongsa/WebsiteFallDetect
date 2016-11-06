@@ -91,11 +91,12 @@
 				</div>
 
 			</div>
+
 		</div>
 
 		<div class="row-fluid">
-		      <div id="footer" class="span12"> 2016 &copy; Mobile Care </div>
-		    </div>
+					<div id="footer" class="span12"> 2016 &copy; Mobile Care </div>
+				</div>
             <script src="js/excanvas.min.js"></script>
             <script src="js/jquery.min.js"></script>
             <script src="js/jquery.ui.custom.js"></script>
@@ -107,5 +108,7 @@
             <script src="js/maruti.charts.js"></script>
             <script src="js/maruti.dashboard.js"></script>
 <script src="js/jquery.peity.min.js"></script>
+
+
 	</body>
 </html>

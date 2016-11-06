@@ -74,20 +74,101 @@
       include "mapfunction.php";
       // echo "<script type='text/javascript' src='markerFunctions.js'></script>";
     ?>
+
+
+    <!-- code to run sending to android functionality -->
+    <?php
+
+      function runMyFunction($userID) {
+        $message = array
+        (
+            'message'   => 'TestMessagebadadfsjafsjas',
+            'title'     => 'TestTitle',
+            'subtitle'  => 'TestSubtitle',
+            'tickerText'    => 'TestTicker',
+            'vibrate'   => 1,
+            'sound'     => 1,
+            'largeIcon' => 'large_icon',
+            'smallIcon' => 'small_icon'
+        );
+        $registrationIds = connectToDB($userID);
+        send_notification($registrationIds,$message);
+        // echo $bro;
+      }
+
+      function connectToDB($userID){
+        $configs = include('config.php');
+        $conn = mysqli_connect($configs["HOST"],$configs["USERNAME"],$configs["PASSWORD"],$configs["DATABASE"]);
+        $sql = "Select Token From users WHERE UserID = \"". $userID . "\"";
+        $result = mysqli_query($conn,$sql);
+        $tokens = array();
+        if(mysqli_num_rows($result) > 0 ){
+        	while ($row = mysqli_fetch_assoc($result)) {
+        		$tokens[] = $row["Token"];
+        	}
+        }
+        mysqli_close($conn);
+        return $tokens;
+      }
+
+      if (isset($_GET['hello'])) {
+        // runMyFunction();
+        $msgID = $_GET['messageid'];
+        runMyFunction($msgID);
+      }
+
+
+
+
+      function send_notification ($registrationIds, $message)
+      {
+        $configs = include('config.php');
+        $fields = array
+        (
+            'registration_ids'  => $registrationIds,
+            'data'          => $message
+        );
+
+        $headers = array
+        (
+            'Authorization: key=' . $configs["API_ACCESS_KEY"],
+            'Content-Type: application/json'
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send' );
+        curl_setopt($ch, CURLOPT_POST, true );
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode( $fields ) );
+        $result = curl_exec($ch );
+        curl_close( $ch );
+
+        // echo $result;
+        if (strpos($result, "\"success\":1") !== false) {
+            echo '<div>Success</div>';
+        }
+      }
+
+
+
+    ?>
+
     <div>
       <input id="show-listings" type="button" value="Show Listings">
       <input id="hide-listings" type="button" value="Hide Listings">
-      <input id="send-to-phone" type="button" onclick="echoHello()" value="Send to Phone">
+      <!-- <input id="send-to-phone" type="button" name="send" value="Send to Phone"> -->
+      <a href='index.php?hello=true&messageid=Ben'>Run Sending To Android Function</a>
+
     </div>
 
 
-      <script async defer src='https://maps.googleapis.com/maps/api/js?v=3&callback=initMap&key='+config.Google_Maps_API_Key></script>
+
+      <script async defer src='https://maps.googleapis.com/maps/api/js?v=3&callback=initMap&key=AIzaSyC3ofEI52xtAkv4miaXd16G3R6UVp5T4Rc'></script>
 
       </div>
-      <?php
-        include "push_notification.php";
-        // echo "<script type='text/javascript' src='markerFunctions.js'></script>";
-      ?>
+
     </div>
   </div>
 </div>

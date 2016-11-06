@@ -63,14 +63,4 @@ function send_notification ($registrationIds, $message)
 // $registrationIds = connectToDB("Ben");
 // send_notification($registrationIds,$message);
 
-FUNCTION hello(){
- ECHO "hi";
- }
-
 ?>
-
-<script>
-function echoHello(){
- alert("<?PHP hello(); ?>");
- }
-</script>
