@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="css/maruti-style.css" />
 <link rel="stylesheet" href="css/maruti-media.css" class="skin-color" />
 <script type='text/javascript' src='config.js'></script> <!-- config file for google maps api key-->
+<?php include 'loginprocess.php';
+
+?>
 </head>
 <body>
 
@@ -24,7 +27,7 @@
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
     <li class="" ><a title="" href="#"><i class="icon icon-user"></i> <span class="text">Profile</span></a></li>
-    <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+    <li class=""><a title="" href="login.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>
 <!--close-top-Header-menu-->
@@ -32,13 +35,13 @@
 
 <div id="content">
   <div id="content-header">
-    <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+    <div id="breadcrumb"> <a href="index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
   </div>
   <div  class="quick-actions_homepage">
     <ul class="quick-actions">
-          <li> <a href="index.html"> <i class="icon-home"></i> Home </a> </li>
-          <li> <a href="patients.html"> <i class="icon-client"></i> Patient </a> </li>
-          <li> <a href="carers.html"> <i class="icon-people"></i> Carer </a> </li>
+          <li> <a href="#"> <i class="icon-home"></i> Home </a> </li>
+          <li> <a href="patients.php"> <i class="icon-client"></i> Patient </a> </li>
+          <li> <a href="carers.php"> <i class="icon-people"></i> Carer </a> </li>
     </ul>
   </div>
 
@@ -48,21 +51,24 @@
         <div class="widget-box" style="width:40%;float:left">
           <div class="widget-title"><span class="icon"><i class="icon-signal"></i></span>
             <h5>Patient Status</h5>
-            <div class="selects" style="float:right"> <select>
-            <option value="unattend">unattend</option>
-            <option value="attending">attending</option>
-            <option value="completed">completed</option>
-            </select></div>
-          </div>
-          <div class="widget-content" >
-            <div class="row-fluid">
-              <div class="span12">
-                <!-- <div class="chart"></div> -->
-              </div>
+            <div class="selects" style="float:right">
+              <select>
+              <option value="unattend">unattend</option>
+              <option value="attending">attending</option>
+              <option value="completed">completed</option>
+              </select>
             </div>
           </div>
+            <div class="widget-content" >
+              <div class="row-fluid">
+                <div class="span12">
+                  <!-- TODO PHP TABLE STUFF HERE -->
+                </div>
+              </div>
+            </div>
         </div>
-
+        <!-- TODO AFTER TABLE SET UP GET INFO FROM TABLE TO PLOT ON MAP -->
+        <!-- TODO AFTER TABLE SET UP ALLOW WEB TO SEND TO ANDROID DATA -->
     <div id="map" style="height:80%;width:55%;float:right"></div>
     <?php
       include "mapfunction.php";

@@ -15,6 +15,7 @@
         </div>
         <div id="loginbox">
             <form id="loginform" class="form-vertical" method="post" action="loginprocess.php">
+
 				 <div class="control-group normal_text"><h3>Mobile Care Login</h3></div>
                 <div class="control-group">
                     <div class="controls">
@@ -31,8 +32,6 @@
                     </div>
                 </div>
                 <div class="form-actions">
-
-
 
                     <span style="margin:25%"><input type="submit" class="btn btn-success" name="btn-login" style="font-size:24px;width:50%" /></span>
 

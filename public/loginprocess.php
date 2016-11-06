@@ -1,11 +1,11 @@
-<?php
+ <?php
 require_once 'connection.php';
 include_once 'class.user.php';
 $user = new USER(getConnection());
 // $user->register("admin","admin");
 if($user->is_loggedin()!="")
 {
- $user->redirect('index.php');
+ $user->redirect('login.php');
 }
 
 if(isset($_POST['btn-login']))
@@ -19,8 +19,40 @@ if(isset($_POST['btn-login']))
   $user->redirect('index.php');
  }
  else
- {
-  echo "Wrong Details !";
- }
+ {?>
+   <!DOCTYPE html>
+   <html lang="en">
+
+     <head>
+             <title>Mobile Care</title><meta charset="UTF-8" />
+             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     		<link rel="stylesheet" href="css/bootstrap.min.css" />
+     		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+             <link rel="stylesheet" href="css/maruti-login.css" />
+     </head>
+
+       <body>
+           <div id="logo">
+               <img src="img/login-logo.png" alt="" />
+           </div>
+           <div id="loginbox">
+               <form id="loginform" class="form-vertical" method="post" action="loginprocess.php">
+
+   				 <div class="control-group normal_text"><h3>Mobile Care Login</h3></div>
+                   <div>
+                     <a href="login.php">try again</a>
+                   </div>
+               </form>
+
+           </div>
+
+           <script src="js/jquery.min.js"></script>
+           <script src="js/maruti.login.js"></script>
+       </body>
+
+   </html>
+
+  <?php
+  }
 }
 ?>

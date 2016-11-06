@@ -1,54 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-		<title>Maruti Admin</title><meta charset="UTF-8" />
+		<title>Mobile Care</title><meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 		<link rel="stylesheet" href="css/maruti-style.css" />
-		<link rel="stylesheet" href="css/maruti-media.css" class="skin-color" />	
+		<link rel="stylesheet" href="css/maruti-media.css" class="skin-color" />
 </head>
 <body>
-		
-		
+
+
 <!--Header-part-->
 <div id="header">
-  <h1><a href="dashboard.html">Maruti Admin</a></h1>
+	<h2 style="color:white;position:relative;left:100px">Mobile Care</h2>
 </div>
-<!--close-Header-part--> 
+<!--close-Header-part-->
 
-<!--top-Header-messaages-->
-<div class="btn-group rightzero"> <a class="top_message tip-left" title="Manage Files"><i class="icon-file"></i></a> <a class="top_message tip-bottom" title="Manage Users"><i class="icon-user"></i></a> <a class="top_message tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a> <a class="top_message tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a> </div>
-<!--close-top-Header-messaages--> 
 
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse"><ul class="nav">
     <li class="" ><a title="" href="#"><i class="icon icon-user"></i> <span class="text">Profile</span></a></li>
-    <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
-    <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+    <li class=""><a title="" href="login.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>
 <!--close-top-Header-menu-->
-     
-		<div id="sidebar">
-			<a href="#" class="visible-phone"><i class="icon icon-signal"></i> Patient</a>
-		</div>
-		
-		
+
 		<div id="content">
 			<div id="content-header">
-				<div id="breadcrumb"><a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>	<a href="#" class="current">Patient</a></div>
-                
+				<div id="breadcrumb"><a href="index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>	<a href="#" class="current">Patient</a></div>
+
 			</div>
             			  <div  class="quick-actions_homepage">
     <ul class="quick-actions">
-          <li> <a href="index.html"> <i class="icon-home"></i> Home </a> </li>
-          <li> <a href="patients.html"> <i class="icon-client"></i> Patient </a> </li>
-          <li> <a href="carers.html"> <i class="icon-people"></i> Carer </a> </li>
-          
+          <li> <a href="index.php"> <i class="icon-home"></i> Home </a> </li>
+          <li> <a href="patients.php"> <i class="icon-client"></i> Patient </a> </li>
+          <li> <a href="carers.php"> <i class="icon-people"></i> Carer </a> </li>
+
     </ul>
   </div>
-			
+
 			<div class="container-fluid">
 				<div class="row-fluid">
 					<div class="span12">
@@ -60,6 +51,7 @@
 								<h5>Patient</h5>
 							</div>
 							<div class="widget-content">
+								<!-- TODO TABLE PHP TABLE HERE -->
 								<div class="Patienttable"><table class="table table-bordered">
                                        <thead>
                                          <tr>
@@ -95,28 +87,15 @@
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
-                
-                <div class="row-fluid">
-					<div class="span6"></div>
-                    <div class="span6"></div>
-				</div>
-                
-                
-				<div class="row-fluid">
-					<div class="span12"></div>
-				</div>
-                <div class="row-fluid">
-					<div class="span12"></div>
-					</div>
-				 
+
 			</div>
 		</div>
-		
+
 		<div class="row-fluid">
-      <div id="footer" class="span12"> 2012 &copy; Marutii Admin. More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a> </div>
-    </div>
+		      <div id="footer" class="span12"> 2016 &copy; Mobile Care </div>
+		    </div>
             <script src="js/excanvas.min.js"></script>
             <script src="js/jquery.min.js"></script>
             <script src="js/jquery.ui.custom.js"></script>
@@ -127,6 +106,6 @@
             <script src="js/maruti.js"></script>
             <script src="js/maruti.charts.js"></script>
             <script src="js/maruti.dashboard.js"></script>
-<script src="js/jquery.peity.min.js"></script> 
+<script src="js/jquery.peity.min.js"></script>
 	</body>
 </html>
