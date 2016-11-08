@@ -5,6 +5,13 @@
 
 <title>Mobile Care</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script type="text/javascript">
+ setInterval(function(){
+  var id=document.getElementById("status").value;
+  $('#statustable').load('gettable.php',{id:id});
+},150);
+
+</script>
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/fullcalendar.css" />
@@ -51,22 +58,19 @@
         <div class="widget-box" style="width:40%;float:left">
           <div class="widget-title"><span class="icon"><i class="icon-signal"></i></span>
             <h5>Patient Status</h5>
-            <div class="selects" style="float:right">
-              <select>
-              <option value="unattend">unattend</option>
-              <option value="attending">attending</option>
-              <option value="completed">completed</option>
-              </select>
+            <div class="selects" style="float:right"> <select name="status" id="status" >
+            <option value="unattend">unattend</option>
+            <option value="attending">attending</option>
+            <option value="completed">completed</option>
+            </select></div>
+          </div>
+          <div class="widget-content" >
+            <div class="statustable" id="statustable">
+
+            </div>
+
             </div>
           </div>
-            <div class="widget-content" >
-              <div class="row-fluid">
-                <div class="span12">
-                  <!-- TODO PHP TABLE STUFF HERE -->
-                </div>
-              </div>
-            </div>
-        </div>
         <!-- TODO AFTER TABLE SET UP GET INFO FROM TABLE TO PLOT ON MAP -->
         <!-- TODO AFTER TABLE SET UP ALLOW WEB TO SEND TO ANDROID DATA -->
     <div id="map" style="height:80%;width:55%;float:right"></div>

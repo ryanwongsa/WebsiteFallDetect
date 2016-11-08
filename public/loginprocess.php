@@ -39,9 +39,14 @@ if(isset($_POST['btn-login']))
                <form id="loginform" class="form-vertical" method="post" action="loginprocess.php">
 
    				 <div class="control-group normal_text"><h3>Mobile Care Login</h3></div>
-                   <div>
-                     <a href="login.php">try again</a>
-                   </div>
+             <div>
+             <p style="font-size:24px">&nbsp; </p>
+             <p style="font-size:24px;text-align:center;color:#CC0033">Invalid username or password!</p>
+             <p style="font-size:24px">&nbsp; </p>
+             <div class="span5">  </div>
+               <center><a href="login.php" class="btn btn-success " style="font-size:24px">try again</a></center>
+              <span></span>
+             </div>
                </form>
 
            </div>
