@@ -32,6 +32,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
 var idleTime = 0;
+var maxIdle =1500;
 $(document).ready(function () {
     //Increment the idle time counter every minute.
     var idleInterval = setInterval(timerIncrement, 1);
@@ -48,7 +49,7 @@ $(document).ready(function () {
 
 function timerIncrement() {
     idleTime = idleTime + 1;
-    if (idleTime > 1500) {
+    if (idleTime > maxIdle) {
       var id=document.getElementById("status").value;
       $('#statustable').load('gettable.php',{id:id});
       idleTime=0;
@@ -199,17 +200,7 @@ function timerIncrement() {
       <script async defer src='https://maps.googleapis.com/maps/api/js?v=3&callback=initMap&key=AIzaSyC3ofEI52xtAkv4miaXd16G3R6UVp5T4Rc'></script>
 
       </div>
-      <!-- TODO useless div -->
-      <div>
-        <a href='index.php?hello=true&messageid=Ben&patient=adfs'>Run Sending To Android Function</a>
 
-        <?php
-          if(isset($_POST['taskOption'])){
-              $select1 = $_POST['taskOption'];
-              echo $select1;
-          }
-          ?>
-      </div>
     </div>
   </div>
 </div>

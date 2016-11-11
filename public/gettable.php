@@ -87,11 +87,11 @@ if(!is_null($sqline)){
 
 			$type;
 			if($data->landed==1&&$data->timeout==0&&$data->confirmed==0){
-				$type="FALL DETECTED";
+				$type="Initial";
 			}else if($data->landed ==1&&$data->timeout ==1&&$data->confirmed ==0){
-				$type="FALL TO";
+				$type="Checking";
 			}else if($data->landed ==1&&$data->timeout ==0&&$data->confirmed ==1){
-				$type="*** CONFIRMED ***";
+				$type="Confirmed";
 			}else if($data->landed ==0&&$data->timeout ==0&&$data->confirmed ==1){
 				$type="False Alarm";
 			}
@@ -126,7 +126,7 @@ if(!is_null($sqline)){
 
 <table class="table">
 	<thread>
-		<tr class="success">
+		<tr class="info">
 			<th> Time </th>
 			<th> Patient ID </th>
 			<th> latitude </th>
@@ -139,7 +139,14 @@ if(!is_null($sqline)){
 foreach($patList as $patInfo){
 ?>
 <tbody>
-<tr>
+	<?php
+	if (strcmp($patInfo->getType(), "Confirmed")==0) {
+		echo "<tr class='danger'>";
+	}
+	else {
+		echo "<tr>";
+	}
+?>
 	<td style="font-size: 12px;">	<?php echo $patInfo->getFalltime(); ?>	</td>
 	<td style="font-size: 12px;">	<?php echo $patInfo->getPid(); ?>	</td>
 	<td style="font-size: 12px;">	<?php echo $patInfo->getLang(); ?>	</td>
@@ -170,16 +177,12 @@ foreach($patList as $patInfo){
 
 <?php include 'mapUpdate.php';?>
 <script type="text/javascript">
-locationPatientUnattended = [];
-locationPatientAttending = [];
-markerPatientUnattended = [];
-markerPatientAttending = [];
-markersCarer = [];
-locationsCarer = [];
+
+removeMarkers(markerPatientUnattended,markersCarer,markerPatientAttending);
+
 convertToLocations(locationPatientUnattended);
 convertToLocationsCarer(locationsCarer);
 createMarker(markerPatientUnattended,locationPatientUnattended,"U");
 createMarker(markersCarer,locationsCarer,"C");
-showListings(markerPatientUnattended);
-showListings(markersCarer);
+showMarkers(markerPatientUnattended,markersCarer,markerPatientAttending);
 </script>

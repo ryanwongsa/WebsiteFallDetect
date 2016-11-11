@@ -81,15 +81,53 @@ var locationPatientUnattended = [];
     }
   }
 
-  function showListings(markers1) {
+  function showMarkers(markers1,markers2,markers3) {
     var bounds = new google.maps.LatLngBounds();
     // Extend the boundaries of the map for each marker and display the marker
     for (var i = 0; i < markers1.length; i++) {
       markers1[i].setMap(map);
-    //  bounds.extend(markers1[i].position);
+     bounds.extend(markers1[i].position);
     }
 
-  //  map.fitBounds(bounds);
+    for (var i = 0; i < markers2.length; i++) {
+      markers2[i].setMap(map);
+     bounds.extend(markers2[i].position);
+    }
+
+    for (var i = 0; i < markers3.length; i++) {
+      markers3[i].setMap(map);
+     bounds.extend(markers3[i].position);
+    }
+
+   map.fitBounds(bounds);
+  }
+
+  function removeMarkers(markers1,markers2,markers3) {
+    var bounds = new google.maps.LatLngBounds();
+    // Extend the boundaries of the map for each marker and display the marker
+    for (var i = 0; i < markers1.length; i++) {
+      markers1[i].setMap(null);
+     bounds.extend(markers1[i].position);
+    }
+
+    for (var i = 0; i < markers2.length; i++) {
+      markers2[i].setMap(null);
+     bounds.extend(markers2[i].position);
+    }
+
+    for (var i = 0; i < markers3.length; i++) {
+      markers3[i].setMap(null);
+     bounds.extend(markers3[i].position);
+    }
+
+   map.fitBounds(bounds);
+
+   locationPatientUnattended = [];
+   locationPatientAttending = [];
+   markerPatientUnattended = [];
+   markerPatientAttending = [];
+   markersCarer = [];
+   locationsCarer = [];
   }
 
 </script>
