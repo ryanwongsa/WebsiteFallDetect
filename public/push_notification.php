@@ -1,6 +1,6 @@
 <?php
 
-$test_registrationIds = array('dclP--HKsqs:APA91bHfVu9XfTt5F5zjYNz-T8LzHON2vFwExNNY3wCPpgtZAa4iqjZoceyfRf4_haO0nXpqyEMAHQj4CziCQgOw2GQEyUifWAdu8uh4Erqx-0UKdvWAAbfdEkoYTYNizLqB_QgLMA5r');
+$test_registrationIds = array('fRdn523NQgw:APA91bFJTqAiMXeESXUp5eNBj3FTGKHrh9fLojVm-qgK9k2Gzo4DsfL3f_zD0Fu2j_86qvd7NXadfcvD7nbJAkxXmY5989f6VToWPe9cZJ6qlDb6tFJq1krkYQSkzphbbyryqUpRR5Dw');//'dclP--HKsqs:APA91bHfVu9XfTt5F5zjYNz-T8LzHON2vFwExNNY3wCPpgtZAa4iqjZoceyfRf4_haO0nXpqyEMAHQj4CziCQgOw2GQEyUifWAdu8uh4Erqx-0UKdvWAAbfdEkoYTYNizLqB_QgLMA5r');
 
 // prep the bundle
 $message = array
@@ -16,7 +16,7 @@ $message = array
 );
 
 
-// $test_message = array("message" => " FCM PUSH NOTIFICATION TEST MESSAGE");
+$test_message = array("message" => "casc2");
 
 function connectToDB($userID){
   $configs = include('config.php');
@@ -60,7 +60,7 @@ function send_notification ($registrationIds, $message)
 
   echo $result;
 }
-$registrationIds = connectToDB("Ben");
-send_notification($registrationIds,$message);
+// $registrationIds = connectToDB("Ben");
+send_notification($test_registrationIds,$test_message);
 
 ?>

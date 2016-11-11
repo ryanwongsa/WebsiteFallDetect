@@ -53,37 +53,39 @@
 							<div class="widget-content">
 								<!-- TODO TABLE PHP TABLE HERE -->
 								<div class="Patienttable"><table class="table table-bordered">
-                                       <thead>
+                                      <thead>
                                          <tr>
                                          <th>Patient ID</th>
+                                         <th>Name</th>
                                          <th>Contact Number</th>
-                                         <th>Fall Times</th>
                                          </tr>
                                        </thead>
                                         <tbody>
-                                        <tr>
-                                        <td>P</td>
-                                        <td>C</td>
-                                        <td>F</td>
-                                        </tr>
-                                        <tr>
-                                        <td>P</td>
-                                        <td>C</td>
-                                        <td>F</td>
-                                        </tr>
-                                        <tr>
-                                        <td>P</td>
-                                        <td>C</td>
-                                        <td>F</td>
-                                        </tr>
-                                        <tr>
-                                        <td>P</td>
-                                        <td>C</td>
-                                        <td>F</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    </div>
+                                        <?php
+																				// 	$configs["HOST"],$configs["USERNAME"],$configs["PASSWORD"],$configs["DATABASE"]);
+                                        //  $user = "123456";
+                                        //  $password = "123456";
+																				$configs = include('config.php');
+																        $conn = mysqli_connect($configs["HOST"],$configs["USERNAME"],$configs["PASSWORD"],$configs["DATABASE"]);
+																        $sql = "Select id, name, contactNumber From User";
+																        $result = mysqli_query($conn,$sql);
+																        // $tokens = array();
+																        if(mysqli_num_rows($result) > 0 ){
+																        	while ($row = mysqli_fetch_assoc($result)) {
+																						echo "<tr>";
+																        		echo "<td>".$row["id"]."</td>";
+																						echo "<td>".$row["name"]."</td>";
+																						echo "<td>".$row["contactNumber"]."</td>";
+																						echo "</tr>";
+																        	}
+																        }
+																				mysqli_close($conn);
+            										?>
+
+
+                  </tbody>
+              </table>
+              </div>
 							</div>
 						</div>
 					</div>

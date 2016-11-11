@@ -45,6 +45,9 @@ $(document).ready(function () {
     $(this).keypress(function (e) {
         idleTime = 0;
     });
+    $('#status').on('change', function() {
+      idleTime = maxIdle+1;
+    })
 });
 
 function timerIncrement() {
@@ -55,6 +58,7 @@ function timerIncrement() {
       idleTime=0;
     }
 }
+
 </script>
 
 <?php include 'loginprocess.php';
@@ -97,11 +101,13 @@ function timerIncrement() {
         <div class="widget-box" style="width:53%;float:left">
           <div class="widget-title"><span class="icon"><i class="icon-signal"></i></span>
             <h5>Patient Status</h5>
-            <div class="selects" style="float:right"> <select name="status" id="status" >
-            <option value="unattend">unattend</option>
-            <option value="attending">attending</option>
-            <option value="completed">completed</option>
-            </select></div>
+            <div class="selects" style="float:right">
+              <select name="status" id="status" >
+                <option value="unattend">unattend</option>
+                <option value="attending">attending</option>
+                <option value="completed">completed</option>
+              </select>
+            </div>
           </div>
             <div class="widget-content" >
               <div class="table-responsive" id="statustable"></div>
@@ -114,32 +120,61 @@ function timerIncrement() {
     <?php
 
       function runMyFunction($userID,$patient) {
-        $message = array
-        (
-            'message'   => $patient,
-            'title'     => 'TestTitle',
-            'subtitle'  => 'TestSubtitle',
-            'tickerText'    => 'TestTicker',
-            'vibrate'   => 1,
-            'sound'     => 1,
-            'largeIcon' => 'large_icon',
-            'smallIcon' => 'small_icon'
-        );
-        $registrationIds = connectToDB($userID);
+        // $message = array
+        // (
+        //     'message'   => $patient,
+        //     'title'     => 'TestTitle',
+        //     'subtitle'  => 'TestSubtitle',
+        //     'tickerText'    => 'TestTicker',
+        //     'vibrate'   => 1,
+        //     'sound'     => 1,
+        //     'largeIcon' => 'large_icon',
+        //     'smallIcon' => 'small_icon'
+        // );
+        $message = array("message" => $patient);
+        $registrationIds = connectToDB($userID,$patient);
         send_notification($registrationIds,$message);
       }
 
-      function connectToDB($userID){
+      function connectToDB($userID,$patient){
         $configs = include('config.php');
         $conn = mysqli_connect($configs["HOST"],$configs["USERNAME"],$configs["PASSWORD"],$configs["DATABASE"]);
-        $sql = "Select Token From Carer WHERE `S/N` = \"". $userID . "\"";
+        $sql = "Select Token, carerID From Carer WHERE `S/N` = \"". $userID . "\"";
         $result = mysqli_query($conn,$sql);
         $tokens = array();
+        $carerID = array();
+
         if(mysqli_num_rows($result) > 0 ){
         	while ($row = mysqli_fetch_assoc($result)) {
         		$tokens[] = $row["Token"];
+            $carerID[] = $row["carerID"];
+
         	}
         }
+        // echo $carerID[0];
+
+        $sql = "Select devide_uuid From User WHERE `id` = \"". $patient . "\"";
+        $result = mysqli_query($conn,$sql);
+        $deviceID = array();
+
+        if(mysqli_num_rows($result) > 0 ){
+        	while ($row = mysqli_fetch_assoc($result)) {
+        		$deviceID[] = $row["devide_uuid"];
+        	}
+        }
+
+        $sql = "INSERT INTO AssignFall(`S/N`,UUID,userID,carerID,status) VALUES ('adsfafd',\"".$deviceID[0]."\",\"".$patient."\",\"".$carerID[0]."\",0)";
+        $result = mysqli_query($conn,$sql);
+        // echo $carerID[0];
+        // $last_id = mysqli_insert_id($conn);
+        // echo $last_id;
+        $sql = "UPDATE Carer SET status=2 WHERE carerID=\"".$carerID[0]."\"";
+        // echo $sql;
+        $result = mysqli_query($conn,$sql);
+        // echo "<script type='text/javascript'>alert(\"".$result."\");</script>";
+        // echo "<script type='text/javascript'>alert(\"".$carerID[0]."\");</script>";
+
+
         mysqli_close($conn);
         return $tokens;
       }

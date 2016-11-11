@@ -8,6 +8,8 @@
 		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 		<link rel="stylesheet" href="css/maruti-style.css" />
 		<link rel="stylesheet" href="css/maruti-media.css" class="skin-color" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
         <link rel="stylesheet" type="text/css" href="css/style.css" />
 
 	</head>
@@ -62,30 +64,47 @@
                       <thead>
                           <tr>
                               <th>CarerID</th>
+															<th>Name</th>
                               <th>Availability</th>
                               <th>Location</th>
-                              <th>Delete</th>
                           </tr>
                       </thead>
                       <tbody>
-                          <tr>
-                              <td class="taskDesc"><i class="icon-info-sign"></i> Making The New Suit</td>
-                              <td class="taskStatus">			<input type="checkbox" id="checkbox_c1" class="chk_4" /><label for="checkbox_c1"></label></td>
-                              <td Style="text-align:center;padding-top:25px">(192,568)</td>
-                              <td class="taskOptions"> <a href="#" class="tip-top" data-original-title="Delete"><i class="icon-remove" style="margin-top:20px"></i></a></td>
-                          </tr>
-                          <tr>
-                              <td class="taskDesc"><i class="icon-plus-sign"></i> Luanch My New Site</td>
-                              <td class="taskStatus"><span class="pending">pending</span></td>
-                              <td Style="text-align:center">(192,568)</td>
-                              <td class="taskOptions"> <a href="#" class="tip-top" data-original-title="Delete"><i class="icon-remove"></i></a></td>
-                          </tr>
-                          <tr>
-                              <td class="taskDesc"><i class="icon-ok-sign"></i> Maruti Excellant Theme</td>
-                              <td class="taskStatus"><span class="done">done</span></td>
-                              <td Style="text-align:center">(192,568)</td>
-                              <td class="taskOptions"> <a href="#" class="tip-top" data-original-title="Delete"><i class="icon-remove"></i></a></td>
-                          </tr>
+												<?php
+												$configs = include('config.php');
+												$conn = mysqli_connect($configs["HOST"],$configs["USERNAME"],$configs["PASSWORD"],$configs["DATABASE"]);
+												$sql = "Select CarerId, name, status, lon, lan From Carer";
+												$result = mysqli_query($conn,$sql);
+												// $tokens = array();
+												if(mysqli_num_rows($result) > 0 ){
+
+													while ($row = mysqli_fetch_assoc($result)) {
+														$status ="";
+														switch($row["status"]){
+														case 0: $status="OFFLINE";
+																		echo "<tr class='danger'>";
+																		break;
+														case 1: $status="ONLINE";
+																		echo "<tr class='success'>";
+																break;
+														case 2: $status="ASSIGNED TASK";
+															echo "<tr class='info'>";
+																break;
+														case 3: $status="BREAK";
+														echo "<tr class='warning'>";
+																break;
+														}
+
+														echo "<td>".$row["CarerId"]."</td>";
+														echo "<td>".$row["name"]."</td>";
+
+														echo "<td>".$status."</td>";
+														echo "<td> latitude: ".$row["lan"]." longitude: ".$row["lon"]." </td>";
+														echo "</tr>";
+													}
+												}
+												mysqli_close($conn);
+												?>
                       </tbody>
                   </table>
 							</div>
