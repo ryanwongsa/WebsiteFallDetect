@@ -8,13 +8,15 @@
   include "mapInitial.php";
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<script type="text/javascript">
+<!-- <script type="text/javascript">
+
  setInterval(function(){
   var id=document.getElementById("status").value;
   $('#statustable').load('gettable.php',{id:id});
-},1500);
+},15000);
 
-</script>
+</script> -->
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
@@ -26,7 +28,34 @@
 <link rel="stylesheet" href="css/fullcalendar.css" />
 <link rel="stylesheet" href="css/maruti-style.css" />
 <link rel="stylesheet" href="css/maruti-media.css" class="skin-color" />
-<script type='text/javascript' src='config.js'></script> <!-- config file for google maps api key-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+var idleTime = 0;
+$(document).ready(function () {
+    //Increment the idle time counter every minute.
+    var idleInterval = setInterval(timerIncrement, 1);
+    var id=document.getElementById("status").value;
+    $('#statustable').load('gettable.php',{id:id});
+    //Zero the idle timer on mouse movement.
+    $(this).mousemove(function (e) {
+        idleTime = 0;
+    });
+    $(this).keypress(function (e) {
+        idleTime = 0;
+    });
+});
+
+function timerIncrement() {
+    idleTime = idleTime + 1;
+    if (idleTime > 1500) {
+      var id=document.getElementById("status").value;
+      $('#statustable').load('gettable.php',{id:id});
+      idleTime=0;
+    }
+}
+</script>
+
 <?php include 'loginprocess.php';
 
 ?>
@@ -73,10 +102,8 @@
             <option value="completed">completed</option>
             </select></div>
           </div>
-          <div class="widget-content" >
-            <div class="table-responsive" id="statustable" >
-
-            </div>
+            <div class="widget-content" >
+              <div class="table-responsive" id="statustable"></div>
             </div>
           </div>
     <div id="map" style="height:60%;width:45%;float:right"></div>
@@ -85,10 +112,10 @@
     <!-- code to run sending to android functionality -->
     <?php
 
-      function runMyFunction($userID) {
+      function runMyFunction($userID,$patient) {
         $message = array
         (
-            'message'   => 'TestMessagebadadfsjafsjas',
+            'message'   => $patient,
             'title'     => 'TestTitle',
             'subtitle'  => 'TestSubtitle',
             'tickerText'    => 'TestTicker',
@@ -99,13 +126,12 @@
         );
         $registrationIds = connectToDB($userID);
         send_notification($registrationIds,$message);
-        // echo $bro;
       }
 
       function connectToDB($userID){
         $configs = include('config.php');
         $conn = mysqli_connect($configs["HOST"],$configs["USERNAME"],$configs["PASSWORD"],$configs["DATABASE"]);
-        $sql = "Select Token From users WHERE UserID = \"". $userID . "\"";
+        $sql = "Select Token From Carer WHERE `S/N` = \"". $userID . "\"";
         $result = mysqli_query($conn,$sql);
         $tokens = array();
         if(mysqli_num_rows($result) > 0 ){
@@ -120,7 +146,18 @@
       if (isset($_GET['hello'])) {
         // runMyFunction();
         $msgID = $_GET['messageid'];
-        runMyFunction($msgID);
+        runMyFunction($msgID,'test');
+      }
+
+      if (isset($_GET['sendCarer'])) {
+        // runMyFunction();
+        // $msgID = $_GET['messageid'];
+        // runMyFunction($msgID);
+        $option = isset($_POST['taskOption']) ? $_POST['taskOption'] : false;
+        $patient = $_GET['patient'];
+        // echo $option."ABCDEF";
+        runMyFunction($option,$patient);
+        // echo "<script type='text/javascript'>alert('hi');</script>";
       }
 
 
@@ -150,11 +187,7 @@
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode( $fields ) );
         $result = curl_exec($ch );
         curl_close( $ch );
-
-        // echo $result;
-        if (strpos($result, "\"success\":1") !== false) {
-            echo '<div>Success</div>';
-        }
+        echo "<script type='text/javascript'>alert(JSON.stringify(".$result."));</script>";
       }
 
 
@@ -168,7 +201,7 @@
       </div>
       <!-- TODO useless div -->
       <div>
-        <a href='index.php?hello=true&messageid=Ben'>Run Sending To Android Function</a>
+        <a href='index.php?hello=true&messageid=Ben&patient=adfs'>Run Sending To Android Function</a>
 
         <?php
           if(isset($_POST['taskOption'])){

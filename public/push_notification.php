@@ -60,7 +60,7 @@ function send_notification ($registrationIds, $message)
 
   echo $result;
 }
-// $registrationIds = connectToDB("Ben");
-// send_notification($registrationIds,$message);
+$registrationIds = connectToDB("Ben");
+send_notification($registrationIds,$message);
 
 ?>

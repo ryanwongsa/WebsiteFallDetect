@@ -146,21 +146,21 @@ foreach($patList as $patInfo){
 	<td style="font-size: 12px;">	<?php echo $patInfo->getLong(); ?>	</td>
 	<td style="font-size: 12px;">	<?php echo $patInfo->getType(); ?>	</td>
 	<td style="font-size: 12px;">
-		<form action="" method="post">
-<?php
-if(is_null($patInfo->getStatus())){
-	echo "<select name='taskOption'>\n";
-	foreach($carerList as $careInfo){
-		if(is_null($careInfo->getPatStatus())){
-			echo "<option value='".$careInfo->getId()."'> ".$careInfo->getName()." </option> \n";
-		}
-	}
-	echo "</select>\n";
-}
-?>
-<input type="submit" name="submit" value="Go"/>
-</form>
-</td>
+		<form action="index.php?sendCarer=true&patient=<?php echo $patInfo->getPid();?>" method="post" class='form-inline'>
+			<?php
+			if(is_null($patInfo->getStatus())){
+				echo "<select name='taskOption' class='form-control'>";
+				foreach($carerList as $careInfo){
+					if(is_null($careInfo->getPatStatus())){
+						echo "<option value='".$careInfo->getId()."'> ".$careInfo->getName()." </option> \n";
+					}
+				}
+				echo "</select>";
+			}
+			?>
+			<input type="submit" name="submit" value="notify"/>
+		</form>
+	</td>
 </tr>
 </tbody>
 <?php
