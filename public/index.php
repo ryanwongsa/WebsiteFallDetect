@@ -4,14 +4,23 @@
 <head>
 
 <title>Mobile Care</title>
+<?php
+  include "mapInitial.php";
+?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script type="text/javascript">
  setInterval(function(){
   var id=document.getElementById("status").value;
   $('#statustable').load('gettable.php',{id:id});
-},150);
+},1500);
 
 </script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+
+
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/fullcalendar.css" />
@@ -33,7 +42,7 @@
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li class="" ><a title="" href="#"><i class="icon icon-user"></i> <span class="text">Profile</span></a></li>
+    <!-- <li class="" ><a title="" href="#"><i class="icon icon-user"></i> <span class="text">Profile</span></a></li> -->
     <li class=""><a title="" href="login.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>
@@ -55,7 +64,7 @@
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span12" style="display:inline">
-        <div class="widget-box" style="width:40%;float:left">
+        <div class="widget-box" style="width:53%;float:left">
           <div class="widget-title"><span class="icon"><i class="icon-signal"></i></span>
             <h5>Patient Status</h5>
             <div class="selects" style="float:right"> <select name="status" id="status" >
@@ -65,19 +74,12 @@
             </select></div>
           </div>
           <div class="widget-content" >
-            <div class="statustable" id="statustable">
+            <div class="table-responsive" id="statustable" >
 
             </div>
-
             </div>
           </div>
-        <!-- TODO AFTER TABLE SET UP GET INFO FROM TABLE TO PLOT ON MAP -->
-        <!-- TODO AFTER TABLE SET UP ALLOW WEB TO SEND TO ANDROID DATA -->
-    <div id="map" style="height:80%;width:55%;float:right"></div>
-    <?php
-      include "mapfunction.php";
-      // echo "<script type='text/javascript' src='markerFunctions.js'></script>";
-    ?>
+    <div id="map" style="height:60%;width:45%;float:right"></div>
 
 
     <!-- code to run sending to android functionality -->
@@ -159,20 +161,22 @@
 
     ?>
 
-    <div>
-      <input id="show-listings" type="button" value="Show Listings">
-      <input id="hide-listings" type="button" value="Hide Listings">
-      <!-- <input id="send-to-phone" type="button" name="send" value="Send to Phone"> -->
-      <a href='index.php?hello=true&messageid=Ben'>Run Sending To Android Function</a>
-
-    </div>
-
 
 
       <script async defer src='https://maps.googleapis.com/maps/api/js?v=3&callback=initMap&key=AIzaSyC3ofEI52xtAkv4miaXd16G3R6UVp5T4Rc'></script>
 
       </div>
+      <!-- TODO useless div -->
+      <div>
+        <a href='index.php?hello=true&messageid=Ben'>Run Sending To Android Function</a>
 
+        <?php
+          if(isset($_POST['taskOption'])){
+              $select1 = $_POST['taskOption'];
+              echo $select1;
+          }
+          ?>
+      </div>
     </div>
   </div>
 </div>

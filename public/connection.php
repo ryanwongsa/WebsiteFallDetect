@@ -5,7 +5,7 @@ function getConnection()
 {
     try {
         $host_name = "127.0.0.1";
-        $database = "fcm";// Change your database name
+        $database = "kentnaic_fallDetector";// Change your database name
         $username = "homestead";// Your database user id
         $password = "secret"; // Your password
 

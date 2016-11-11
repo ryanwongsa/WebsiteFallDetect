@@ -16,7 +16,6 @@ ON a.`uuid`=c.`UUID`
 WHERE a.`timestamp` IN (
 		SELECT MAX(`timestamp`)
 		FROM FallEvent
-		WHERE timestamp > DATE_SUB(CURDATE(), INTERVAL 1 DAY)
 		GROUP BY `uuid`)
 AND c.`UUID`IS NULL AND a.`landed`=1
 GROUP BY a.`uuid`
@@ -36,7 +35,6 @@ ON a.`uuid`=c.`UUID`
 WHERE a.`timestamp` IN (
 		SELECT MAX(`timestamp`)
 		FROM FallEvent
-		WHERE timestamp > DATE_SUB(CURDATE(), INTERVAL 1 DAY)
 		GROUP BY `uuid`)
 AND c.`UUID` NOT IN (a.`uuid`)
 AND (a.`landed`=1  OR a.`timeout`=1 or a.`confirmed`=1)
@@ -57,7 +55,6 @@ ON a.`uuid`=c.`UUID`
 WHERE a.`timestamp` IN (
 		SELECT MAX(`timestamp`)
 		FROM FallEvent
-		WHERE timestamp > DATE_SUB(CURDATE(), INTERVAL 1 DAY)
 		GROUP BY `uuid`)
 AND c.`UUID` NOT IN (a.`uuid`)
 AND (a.`landed`=1  OR a.`timeout`=1 OR a.`confirmed`=1)
@@ -127,28 +124,32 @@ if(!is_null($sqline)){
 
 
 
-<table border=1>
-<tr >
-	<th> Time </th>
-	<th> Patient ID </th>
-	<th> latitude </th>
-	<th> longitude </th>
-	<th> FD Status </th>
-	<th> CarerID </th>
-</tr>
+<table class="table">
+	<thread>
+		<tr class="success">
+			<th> Time </th>
+			<th> Patient ID </th>
+			<th> latitude </th>
+			<th> longitude </th>
+			<th> FD Status </th>
+			<th> CarerID </th>
+		</tr>
+</thread>
 <?php
 foreach($patList as $patInfo){
 ?>
+<tbody>
 <tr>
-	<td>	<?php echo $patInfo->getFalltime(); ?>	</td>
-	<td>	<?php echo $patInfo->getPid(); ?>	</td>
-	<td>	<?php echo $patInfo->getLang(); ?>	</td>
-	<td>	<?php echo $patInfo->getLong(); ?>	</td>
-	<td>	<?php echo $patInfo->getType(); ?>	</td>
-	<td>
+	<td style="font-size: 12px;">	<?php echo $patInfo->getFalltime(); ?>	</td>
+	<td style="font-size: 12px;">	<?php echo $patInfo->getPid(); ?>	</td>
+	<td style="font-size: 12px;">	<?php echo $patInfo->getLang(); ?>	</td>
+	<td style="font-size: 12px;">	<?php echo $patInfo->getLong(); ?>	</td>
+	<td style="font-size: 12px;">	<?php echo $patInfo->getType(); ?>	</td>
+	<td style="font-size: 12px;">
+		<form action="" method="post">
 <?php
 if(is_null($patInfo->getStatus())){
-	echo "<select>\n";
+	echo "<select name='taskOption'>\n";
 	foreach($carerList as $careInfo){
 		if(is_null($careInfo->getPatStatus())){
 			echo "<option value='".$careInfo->getId()."'> ".$careInfo->getName()." </option> \n";
@@ -156,11 +157,29 @@ if(is_null($patInfo->getStatus())){
 	}
 	echo "</select>\n";
 }
-
 ?>
+<input type="submit" name="submit" value="Go"/>
+</form>
 </td>
 </tr>
+</tbody>
 <?php
 }
 ?>
 </table>
+
+<?php include 'mapUpdate.php';?>
+<script type="text/javascript">
+locationPatientUnattended = [];
+locationPatientAttending = [];
+markerPatientUnattended = [];
+markerPatientAttending = [];
+markersCarer = [];
+locationsCarer = [];
+convertToLocations(locationPatientUnattended);
+convertToLocationsCarer(locationsCarer);
+createMarker(markerPatientUnattended,locationPatientUnattended,"U");
+createMarker(markersCarer,locationsCarer,"C");
+showListings(markerPatientUnattended);
+showListings(markersCarer);
+</script>
