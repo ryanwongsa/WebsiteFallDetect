@@ -13,20 +13,27 @@ var locationPatientUnattended = [];
 
       var position = locations[i].location;
       var title = locations[i].title;
+      var typeFull="";
+      var statusF="";
       // Create a marker per location, and put into markers array.
       var icon="http://maps.google.com/mapfiles/ms/icons/red-dot.png";
       if(type=="C"){
         icon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+        typeFull ="Carer";
       }
       else if(type=="U"){
         icon="http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+        typeFull ="Unattended";
       }
       else if(type=="A"){
         icon="http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+        typeFull ="Attending";
       }
        var marker = new google.maps.Marker({
         position: position,
         title: title,
+        typeF: typeFull,
+        status: statusF,
         icon: icon,
         animation: google.maps.Animation.DROP,
         id: i
@@ -72,7 +79,7 @@ var locationPatientUnattended = [];
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
       infowindow.marker = marker;
-      infowindow.setContent('<div>' + marker.title + '</div>');
+      infowindow.setContent('<div><h5>'+marker.typeF+'</h5><b>ID:</b>' + marker.title +'</div>');
       infowindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed.
       infowindow.addListener('closeclick', function() {

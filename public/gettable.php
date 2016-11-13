@@ -180,9 +180,20 @@ foreach($patList as $patInfo){
 
 removeMarkers(markerPatientUnattended,markersCarer,markerPatientAttending);
 
-convertToLocations(locationPatientUnattended);
+
+var stateoftable=document.getElementById("status").value;
+// alert(stateoftable);
+if(stateoftable=='unattend'){
+	convertToLocations(locationPatientUnattended);
+	createMarker(markerPatientUnattended,locationPatientUnattended,"U");
+}
+else{
+	if(stateoftable=='attending'){
+		convertToLocations(locationPatientAttending);
+		createMarker(markerPatientAttending,locationPatientAttending,"A");
+	}
+}
 convertToLocationsCarer(locationsCarer);
-createMarker(markerPatientUnattended,locationPatientUnattended,"U");
 createMarker(markersCarer,locationsCarer,"C");
 showMarkers(markerPatientUnattended,markersCarer,markerPatientAttending);
 </script>

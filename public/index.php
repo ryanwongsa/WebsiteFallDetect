@@ -6,6 +6,7 @@
 <title>Mobile Care</title>
 <?php
   include "mapInitial.php";
+  include "randID.php";
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- <script type="text/javascript">
@@ -162,8 +163,9 @@ function timerIncrement() {
         		$deviceID[] = $row["devide_uuid"];
         	}
         }
-
-        $sql = "INSERT INTO AssignFall(`S/N`,UUID,userID,carerID,status) VALUES ('adsfafd',\"".$deviceID[0]."\",\"".$patient."\",\"".$carerID[0]."\",0)";
+        $snID = getRandID(5);
+        // echo $snID;
+        $sql = "INSERT INTO AssignFall(`S/N`,UUID,userID,carerID,status) VALUES (\"".$snID."\",\"".$deviceID[0]."\",\"".$patient."\",\"".$carerID[0]."\",0)";
         $result = mysqli_query($conn,$sql);
         // echo $carerID[0];
         // $last_id = mysqli_insert_id($conn);
