@@ -115,13 +115,17 @@ $carers = getCarers();
     map.fitBounds(bounds);
   }
 
-  function hideListings(markers1,markers2) {
+  function hideListings(markers1,markers2,markers3) {
     for (var i = 0; i < markers1.length; i++) {
       markers1[i].setMap(null);
     }
 
     for (var i = 0; i < markers2.length; i++) {
       markers2[i].setMap(null);
+    }
+
+    for (var i = 0; i < markers3.length; i++) {
+      markers3[i].setMap(null);
     }
   }
 </script>

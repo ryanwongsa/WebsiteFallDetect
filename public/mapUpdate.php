@@ -5,6 +5,8 @@ var markerPatientAttending = [];
 var locationPatientAttending = [];
 var markerPatientUnattended = [];
 var locationPatientUnattended = [];
+var markerPatientCompleted = [];
+var locationPatientCompleted = [];
 
   function createMarker(markers,locations,type){
     var largeInfowindow = new google.maps.InfoWindow();
@@ -26,8 +28,12 @@ var locationPatientUnattended = [];
         typeFull ="Unattended";
       }
       else if(type=="A"){
-        icon="http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+        icon="http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
         typeFull ="Attending";
+      }
+      else{
+        icon="http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+        typeFull ="Completed";
       }
        var marker = new google.maps.Marker({
         position: position,
@@ -88,7 +94,7 @@ var locationPatientUnattended = [];
     }
   }
 
-  function showMarkers(markers1,markers2,markers3) {
+  function showMarkers(markers1,markers2,markers3,markers4) {
     var bounds = new google.maps.LatLngBounds();
     // Extend the boundaries of the map for each marker and display the marker
     for (var i = 0; i < markers1.length; i++) {
@@ -106,10 +112,15 @@ var locationPatientUnattended = [];
      bounds.extend(markers3[i].position);
     }
 
+    for (var i = 0; i < markers4.length; i++) {
+      markers4[i].setMap(map);
+     bounds.extend(markers4[i].position);
+    }
+
    map.fitBounds(bounds);
   }
 
-  function removeMarkers(markers1,markers2,markers3) {
+  function removeMarkers(markers1,markers2,markers3,markers4) {
     var bounds = new google.maps.LatLngBounds();
     // Extend the boundaries of the map for each marker and display the marker
     for (var i = 0; i < markers1.length; i++) {
@@ -127,11 +138,18 @@ var locationPatientUnattended = [];
      bounds.extend(markers3[i].position);
     }
 
+    for (var i = 0; i < markers4.length; i++) {
+      markers4[i].setMap(null);
+     bounds.extend(markers4[i].position);
+    }
+
    map.fitBounds(bounds);
 
    locationPatientUnattended = [];
    locationPatientAttending = [];
    markerPatientUnattended = [];
+   locationPatientCompleted = [];
+   markerPatientCompleted = [];
    markerPatientAttending = [];
    markersCarer = [];
    locationsCarer = [];

@@ -6,6 +6,8 @@
   var locationPatientAttending = [];
   var markerPatientUnattended = [];
   var locationPatientUnattended = [];
+  var markerPatientCompleted = [];
+  var locationPatientCompleted = [];
 
   function initMap() {
     // Constructor creates a new map - only center and zoom are required.

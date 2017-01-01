@@ -36,7 +36,7 @@ WHERE a.`timestamp` IN (
 		SELECT MAX(`timestamp`)
 		FROM FallEvent
 		GROUP BY `uuid`)
-AND c.`UUID` NOT IN (a.`uuid`)
+AND c.`UUID` IN (a.`uuid`)
 AND (a.`landed`=1  OR a.`timeout`=1 or a.`confirmed`=1)
 AND c.`status`!=4
 GROUP BY a.`uuid`
@@ -56,7 +56,7 @@ WHERE a.`timestamp` IN (
 		SELECT MAX(`timestamp`)
 		FROM FallEvent
 		GROUP BY `uuid`)
-AND c.`UUID` NOT IN (a.`uuid`)
+AND c.`UUID` IN (a.`uuid`)
 AND (a.`landed`=1  OR a.`timeout`=1 OR a.`confirmed`=1)
 AND c.`status`=4
 GROUP BY a.`uuid`
@@ -102,7 +102,7 @@ if(!is_null($sqline)){
 			array_push($patList , $patData);
 			array_push($locList , $locData);
 		}
-		$sqlqry = 'SELECT a.`S/N` AS "cID",`Name`,`mobile`,`lon`,`lan`,a.`status` as "cStatus", b.`S/N` as "fallID", b.`UUID`as "pUUID", b.`userID`as "pID", b.`status` as "pStatus" FROM `Carer` a LEFT JOIN `AssignFall` b ON a.`S/N`= b.`carerID` AND b.`status`=( SELECT `status`FROM `AssignFall` c where c.`status` NOT IN (4,5)) WHERE a.`status` =1';
+		$sqlqry = 'SELECT a.`S/N` AS "cID",`Name`,`mobile`,`lon`,`lan`,a.`status` as "cStatus", b.`S/N` as "fallID", b.`UUID`as "pUUID", b.`userID`as "pID", b.`status` as "pStatus" FROM `Carer` a LEFT JOIN `AssignFall` b ON a.`S/N`= b.`carerID` AND b.`status` NOT IN (4,5) WHERE a.`status` =1';
 		$db1 = getConnection();
 		$code= $db1->prepare($sqlqry);
 		$code->execute();
@@ -178,7 +178,7 @@ foreach($patList as $patInfo){
 <?php include 'mapUpdate.php';?>
 <script type="text/javascript">
 
-removeMarkers(markerPatientUnattended,markersCarer,markerPatientAttending);
+removeMarkers(markerPatientUnattended,markersCarer,markerPatientAttending,markerPatientCompleted);
 
 
 var stateoftable=document.getElementById("status").value;
@@ -192,8 +192,12 @@ else{
 		convertToLocations(locationPatientAttending);
 		createMarker(markerPatientAttending,locationPatientAttending,"A");
 	}
+	else{
+		convertToLocations(locationPatientCompleted);
+		createMarker(markerPatientCompleted,locationPatientCompleted,"Co");
+	}
 }
 convertToLocationsCarer(locationsCarer);
 createMarker(markersCarer,locationsCarer,"C");
-showMarkers(markerPatientUnattended,markersCarer,markerPatientAttending);
+showMarkers(markerPatientUnattended,markersCarer,markerPatientAttending,markerPatientCompleted);
 </script>

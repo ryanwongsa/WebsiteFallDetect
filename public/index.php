@@ -48,6 +48,7 @@ $(document).ready(function () {
     });
     $('#status').on('change', function() {
       idleTime = maxIdle+1;
+      initMap();
     })
 });
 
@@ -227,12 +228,7 @@ function timerIncrement() {
         curl_close( $ch );
         echo "<script type='text/javascript'>alert(JSON.stringify(".$result."));</script>";
       }
-
-
-
     ?>
-
-
 
       <script async defer src='https://maps.googleapis.com/maps/api/js?v=3&callback=initMap&key=AIzaSyC3ofEI52xtAkv4miaXd16G3R6UVp5T4Rc'></script>
 
